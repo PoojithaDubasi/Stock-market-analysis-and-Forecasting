@@ -1,0 +1,134 @@
+import numpy as np 
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+     
+
+google = pd.read_csv('GOOGL_2006-01-01_to_2018-01-01.csv', index_col='Date', parse_dates=['Date'])
+google.head()
+     
+Open	High	Low	Close	Volume	Name
+Date						
+2006-01-03	211.47	218.05	209.32	217.83	13137450	GOOGL
+2006-01-04	222.17	224.70	220.09	222.84	15292353	GOOGL
+2006-01-05	223.22	226.00	220.97	225.85	10815661	GOOGL
+2006-01-06	228.66	235.49	226.85	233.06	17759521	GOOGL
+2006-01-09	233.44	236.94	230.70	233.68	12795837	GOOGL
+
+microsoft = pd.read_csv('MSFT_2006-01-01_to_2018-01-01.csv', index_col='Date', parse_dates=['Date'])
+microsoft.head()
+     
+Open	High	Low	Close	Volume	Name
+Date						
+2006-01-03	26.25	27.00	26.10	26.84	79974418	MSFT
+2006-01-04	26.77	27.08	26.77	26.97	57975661	MSFT
+2006-01-05	26.96	27.13	26.91	26.99	48247610	MSFT
+2006-01-06	26.89	27.00	26.49	26.91	100969092	MSFT
+2006-01-09	26.93	27.07	26.76	26.86	55627836	MSFT
+
+amazon = pd.read_csv('AMZN_2006-01-01_to_2018-01-01.csv', index_col='Date', parse_dates=['Date'])
+amazon.head()
+     
+Open	High	Low	Close	Volume	Name
+Date						
+2006-01-03	47.47	47.85	46.25	47.58	7582127	AMZN
+2006-01-04	47.48	47.73	46.69	47.25	7440914	AMZN
+2006-01-05	47.16	48.20	47.11	47.65	5417258	AMZN
+2006-01-06	47.97	48.58	47.32	47.87	6154285	AMZN
+2006-01-09	46.55	47.10	46.40	47.08	8945056	AMZN
+
+ibm = pd.read_csv('IBM_2006-01-01_to_2018-01-01.csv', index_col='Date', parse_dates=['Date'])
+ibm.head()
+     
+Open	High	Low	Close	Volume	Name
+Date						
+2006-01-03	82.45	82.55	80.81	82.06	11715200	IBM
+2006-01-04	82.20	82.50	81.33	81.95	9840600	IBM
+2006-01-05	81.40	82.90	81.00	82.50	7213500	IBM
+2006-01-06	83.95	85.03	83.41	84.95	8197400	IBM
+2006-01-09	84.10	84.25	83.38	83.73	6858200	IBM
+
+google.describe()
+     
+Open	High	Low	Close	Volume
+count	3019.000000	3019.000000	3019.000000	3019.000000	3.019000e+03
+mean	428.200802	431.835618	424.130275	428.044001	3.551504e+06
+std	236.320026	237.514087	234.923747	236.343238	3.038599e+06
+min	131.390000	134.820000	123.770000	128.850000	5.211410e+05
+25%	247.775000	250.190000	244.035000	247.605000	1.760854e+06
+50%	310.480000	312.810000	307.790000	310.080000	2.517630e+06
+75%	572.140000	575.975000	565.900000	570.770000	4.242182e+06
+max	1083.020000	1086.490000	1072.270000	1085.090000	4.118289e+07
+After describing the google dataset, there is a high difference between the minimum and maximum values. And 75% of the value is close to the mean.
+
+
+google.columns
+     
+Index(['Open', 'High', 'Low', 'Close', 'Volume', 'Name'], dtype='object')
+
+google.info()
+     
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3019 entries, 2006-01-03 to 2017-12-29
+Data columns (total 6 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   Open    3019 non-null   float64
+ 1   High    3019 non-null   float64
+ 2   Low     3019 non-null   float64
+ 3   Close   3019 non-null   float64
+ 4   Volume  3019 non-null   int64  
+ 5   Name    3019 non-null   object 
+dtypes: float64(4), int64(1), object(1)
+memory usage: 165.1+ KB
+
+google.isna().sum()
+     
+Open      0
+High      0
+Low       0
+Close     0
+Volume    0
+Name      0
+dtype: int64
+
+microsoft.describe()
+     
+Open	High	Low	Close	Volume
+count	3019.000000	3019.000000	3019.000000	3019.000000	3.019000e+03
+mean	36.496817	36.827903	36.173190	36.513412	5.161762e+07
+std	14.683337	14.742483	14.620057	14.694656	3.114958e+07
+min	15.200000	15.620000	14.870000	15.150000	7.425603e+06
+25%	26.785000	27.045000	26.535000	26.835000	3.136557e+07
+50%	29.990000	30.230000	29.780000	30.000000	4.617529e+07
+75%	44.545000	44.980000	44.090000	44.400000	6.322291e+07
+max	87.120000	87.500000	86.230000	86.850000	5.910786e+08
+Also same for the Microsoft dataset, there is a high difference between the minimum and maximum values. And 75% of the value is close to the mean.
+
+
+microsoft.info()
+     
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3019 entries, 2006-01-03 to 2017-12-29
+Data columns (total 6 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   Open    3019 non-null   float64
+ 1   High    3019 non-null   float64
+ 2   Low     3019 non-null   float64
+ 3   Close   3019 non-null   float64
+ 4   Volume  3019 non-null   int64  
+ 5   Name    3019 non-null   object 
+dtypes: float64(4), int64(1), object(1)
+memory usage: 165.1+ KB
+
+microsoft.isna().sum()
+     
+Open      0
+High      0
+Low       0
+Close     0
+Volume    0
+Name      0
+dtype: int64
